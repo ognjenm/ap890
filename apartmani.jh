@@ -1,0 +1,40 @@
+DEFAULT_MIN_LENGTH = 1
+DEFAULT_MAX_LENGTH = 250
+DEFAULT_MIN_BYTES = 20
+DEFAULT_MAX_BYTES = 40
+DEFAULT_MIN = 0
+DEFAULT_MAX = 5
+
+entity Booking {
+	gost String minlength(DEFAULT_MIN_LENGTH) maxlength(DEFAULT_MAX_LENGTH) required
+	checkIn LocalDate required
+    checkOut LocalDate required
+    brojOdraslih Integer min(1) max(DEFAULT_MAX)
+    brojDjece Integer min(DEFAULT_MIN) max(DEFAULT_MAX)
+    cijena Double min(DEFAULT_MIN)
+    opis String 
+    kreiraoKorisnik String
+    izmijenioKorisnik String
+    datumKreiranja Instant
+    datumIzmjene Instant
+}
+
+entity Izvor {
+	naziv String required
+    opis String
+}
+
+entity Apartmani {
+	naziv String required
+    opis String
+}
+
+relationship ManyToOne {
+  Booking{apartman} to Apartmani,
+  Booking{izvor} to Izvor
+}
+
+
+service all with serviceClass
+paginate all with pagination
+filter all
